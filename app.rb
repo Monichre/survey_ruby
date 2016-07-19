@@ -13,6 +13,10 @@ get('/') do
   erb(:index)
 end
 
+get('/admin') do
+  erb(:admin)
+end
+
 post('/surveys') do
   name = params['name']
   @survey = Survey.create({name: name})
@@ -113,4 +117,9 @@ delete('/surveys/:survey_id/questions/:question_id/delete') do
   question = Question.find(params['question_id'])
   question.delete()
   redirect('/surveys/' + params['survey_id'])
+end
+
+get('/surveys/:id/take') do
+  @survey = Survey.find(params['id'].to_i)
+  erb(:take_survey)
 end

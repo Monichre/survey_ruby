@@ -1,0 +1,12 @@
+<h1><%= @survey.name() %></h1>
+<hr>
+
+<h4><%= @survey.questions[0].content%></h4>
+<form action="submit_question" method="post">
+  <% @survey.questions[0].responses.each() do |response| %>
+    <div class="radio">
+    <label><input type="radio" name="optradio"><%= response.response_content %></label>
+    </div>
+  <% end %>
+  <button class="btn btn-primary" type="submit" name="button">Submit</button>
+</form>

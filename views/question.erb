@@ -6,6 +6,7 @@
 <hr>
 
 <% if @question.responses.any? %>
+  <h4>Responses:</h4>
   <ul class="list-group">
     <% @question.responses.each do |response| %>
     <li class="list-group-item">
@@ -18,15 +19,15 @@
 
         <form class="response-form" action="/surveys/<%= @survey.id() %>/questions/<%=@question.id %>/<%=response.id%>/delete" method="post">
           <input name = "_method" type="hidden" value="delete">
-          <button class = 'btn btn-danger' type="submit">Delete Response</button>
+          <button class = 'btn btn-danger btn-sm' type="submit">Delete Response</button>
         </form>
         <form class="rating-form" action="/surveys/<%= @survey.id() %>/questions/<%=@question.id %>/<%=response.id%>/down_vote" method="post">
           <input name = "_method" type="hidden" value="patch">
-          <button class = 'btn btn-warning downVote' type="submit"><span class="glyphicon glyphicon-thumbs-down"></span></button>
+          <button class = 'btn btn-warning btn-sm downVote' type="submit"><span class="glyphicon glyphicon-thumbs-down"></span></button>
         </form>
         <form class="rating-form" action="/surveys/<%= @survey.id() %>/questions/<%=@question.id %>/<%=response.id%>/up_vote" method="post">
           <input name = "_method" type="hidden" value="patch">
-          <button class = 'btn btn-success upVote' type="submit"><span class="glyphicon glyphicon-thumbs-up"></span></button>
+          <button class = 'btn btn-success btn-sm upVote' type="submit"><span class="glyphicon glyphicon-thumbs-up"></span></button>
         </form>
 
     </li>
