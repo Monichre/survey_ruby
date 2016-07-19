@@ -1,0 +1,10 @@
+.list-group-item {
+  position: relative;
+  padding: 10px!important;
+}
+
+.response-form {
+  position: absolute;
+  right: 0;
+  bottom: 4px;
+}

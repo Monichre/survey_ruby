@@ -1,0 +1,34 @@
+<h1>Question content: </h1>
+
+<h4><%= @question.content() %></h4>
+
+<a href="/surveys/<%=@survey.id()%>/questions/<%=@question.id()%>/edit" class="btn btn-warning">Edit Question Content</a>
+
+<% if @question.responses.any? %>
+  <ul class="list-group">
+    <% @question.responses.each() do |response| %>
+    <li class="list-group-item"><%=response.response_content %>
+
+        <form class="response-form" action="/surveys/<%= @survey.id() %>/questions/<%=@question.id %>/<%=response.id%>/delete" method="post">
+          <input name = "_method" type="hidden" value="delete">
+          <button class = 'btn btn-danger' type="submit">Delete Response</button>
+        </form>
+
+    </li>
+
+    <% end %>
+  </ul>
+<% else %>
+  <p>
+    No responses at this time
+  </p>
+<% end %>
+
+<h3>Add a response</h3>
+
+
+<form class="" action="/surveys/<%=@survey.id()%>/questions/<%= @question.id() %>/new_response" method="post">
+  <label for="response">Keep your responses concise</label><br>
+  <textarea name="response" id="response" rows="8" cols="40"></textarea><br>
+  <button class = 'btn btn-primary' type="submit">Submit Response</button>
+</form>

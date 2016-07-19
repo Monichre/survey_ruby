@@ -1,0 +1,25 @@
+<h1>Survey Title: <%= @survey.name() %></h1>
+
+<a href="/surveys/<%=@survey.id()%>/edit" class="btn btn-warning">Edit Survey Title</a>
+<form class="" action="/surveys/<%= @survey.id() %>" method="post">
+  <input name = "_method" type="hidden" value="delete">
+  <button class = 'btn btn-danger' type="submit">Delete Survey</button>
+</form>
+
+<h2>Questions:</h2>
+<ul class="list-group">
+  <% @survey.questions.each() do |question| %>
+  <li class="list-group-item"><a href="/surveys/<%=@survey.id()%>/questions/<%= question.id() %>"><%= question.content() %></a></li>
+  <% end %>
+</ul>
+
+<p>Add questions:</p>
+
+<form action="/surveys/<%=@survey.id%>/new_question" method="post">
+  <label for="content">question:</label>
+  <input type="text" name="content" id = "content">
+
+  <button class = 'btn btn-default' type="submit">Add Question</button>
+</form>
+
+<a href="/" class="btn btn-default active" role="button">Home</a>
