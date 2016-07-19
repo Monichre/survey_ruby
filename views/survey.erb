@@ -9,7 +9,14 @@
 <h2>Questions:</h2>
 <ul class="list-group">
   <% @survey.questions.each() do |question| %>
-  <li class="list-group-item"><a href="/surveys/<%=@survey.id()%>/questions/<%= question.id() %>"><%= question.content() %></a></li>
+  <li class="list-group-item"><a href="/surveys/<%=@survey.id()%>/questions/<%= question.id() %>"><%= question.content() %></a>
+
+    <form class="response-form" action="/surveys/<%= @survey.id() %>/questions/<%=question.id %>/delete" method="post">
+      <input name = "_method" type="hidden" value="delete">
+      <button class = 'btn btn-danger' type="submit">Delete Question</button>
+    </form>
+
+  </li>
   <% end %>
 </ul>
 

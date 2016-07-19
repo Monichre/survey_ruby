@@ -52,6 +52,10 @@ end
 get('/surveys/:survey_id/questions/:question_id') do
   @survey = Survey.find(params['survey_id'].to_i)
   @question = Question.find(params['question_id'].to_i)
+  @question.responses.to_a.sort! {|x| x.rating}.reverse!
+  # responses = @question.responses
+  # @sorted_responses = responses.to_a.sort! {|x| x.rating}
+  # @sorted_responses.reverse!
   erb(:question)
 end
 
@@ -84,4 +88,29 @@ delete("/surveys/:survey_id/questions/:question_id/:response_id/delete") do
   response.delete
   url = '/surveys/' + survey_id + '/questions/' + question_id
   redirect(url)
+end
+
+patch("/surveys/:survey_id/questions/:question_id/:response_id/up_vote") do
+  response = Response.find(params['response_id'].to_i)
+  survey_id = params['survey_id']
+  question_id = params['question_id']
+  response.up_vote
+  url = '/surveys/' + survey_id + '/questions/' + question_id
+  redirect(url)
+end
+
+patch("/surveys/:survey_id/questions/:question_id/:response_id/down_vote") do
+  response = Response.find(params['response_id'].to_i)
+  survey_id = params['survey_id']
+  question_id = params['question_id']
+  response.down_vote
+  url = '/surveys/' + survey_id + '/questions/' + question_id
+  redirect(url)
+end
+
+delete('/surveys/:survey_id/questions/:question_id/delete') do
+  # survey = Survey.find(params['survey_id'])
+  question = Question.find(params['question_id'])
+  question.delete()
+  redirect('/surveys/' + params['survey_id'])
 end

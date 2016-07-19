@@ -8,3 +8,15 @@
   right: 0;
   bottom: 4px;
 }
+
+.upVote {
+  position: absolute;
+  right: 200px;
+  bottom: 4px;
+}
+
+.downVote {
+  position: absolute;
+  right: 150px;
+  bottom: 4px;
+}

@@ -3,15 +3,30 @@
 <h4><%= @question.content() %></h4>
 
 <a href="/surveys/<%=@survey.id()%>/questions/<%=@question.id()%>/edit" class="btn btn-warning">Edit Question Content</a>
+<hr>
 
 <% if @question.responses.any? %>
   <ul class="list-group">
-    <% @question.responses.each() do |response| %>
-    <li class="list-group-item"><%=response.response_content %>
+    <% @question.responses.each do |response| %>
+    <li class="list-group-item">
+      <% if response.rating > 5 %>
+        <span>Rating: <span class="glyphicon glyphicon-fire"></span></span><br>
+      <% else %>
+        <span>Rating: <%=response.rating %></span><br>
+      <%end %>
+      <%=response.response_content %>
 
         <form class="response-form" action="/surveys/<%= @survey.id() %>/questions/<%=@question.id %>/<%=response.id%>/delete" method="post">
           <input name = "_method" type="hidden" value="delete">
           <button class = 'btn btn-danger' type="submit">Delete Response</button>
+        </form>
+        <form class="rating-form" action="/surveys/<%= @survey.id() %>/questions/<%=@question.id %>/<%=response.id%>/down_vote" method="post">
+          <input name = "_method" type="hidden" value="patch">
+          <button class = 'btn btn-warning downVote' type="submit"><span class="glyphicon glyphicon-thumbs-down"></span></button>
+        </form>
+        <form class="rating-form" action="/surveys/<%= @survey.id() %>/questions/<%=@question.id %>/<%=response.id%>/up_vote" method="post">
+          <input name = "_method" type="hidden" value="patch">
+          <button class = 'btn btn-success upVote' type="submit"><span class="glyphicon glyphicon-thumbs-up"></span></button>
         </form>
 
     </li>
@@ -32,3 +47,6 @@
   <textarea name="response" id="response" rows="8" cols="40"></textarea><br>
   <button class = 'btn btn-primary' type="submit">Submit Response</button>
 </form>
+
+<hr>
+<a href="/" class="btn btn-default active" role="button">Home</a>
